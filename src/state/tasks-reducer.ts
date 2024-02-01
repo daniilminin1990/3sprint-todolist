@@ -1,44 +1,29 @@
 import { v1 } from "uuid"
-import { FilterValuesType, TasksStateType, TodolistType } from "../App"
+import { TasksStateType } from "../App"
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
   switch(action.type) {
-    case '': {
-      return state
+    case 'REMOVE-TASK': {
+      return {
+        ...state, 
+        [action.todolistId]: state[action.todolistId]
+          .filter(t => t.id !== action.taskId)
+      }
     }
-    case '': {
-      return state
-    }
-    // // case 'CHANGE-TODOLIST-FILTER': {
-    // //   return state.map(el => el.id === action.payload.id ? {...el, filter: action.payload.filter} : el)
-    // // }
-    // case 'CHANGE-TODOLIST-FILTER': {
-    //   const todolist = state.find(tl => tl.id === action.payload.id);
-    //   if(todolist){
-    //     // если нашелся, изменим ему заголовок
-    //     todolist.filter = action.payload.filter
-    //   }
-    //   return [...state]
+    // case '': {
+    //   return state
     // }
-
-    // default: return state
     default:
       throw new Error("I don't understand this type")
   }
 }
 
-type ActionsType = FirstActionType | SecondActionType
+type ActionsType = RemoveTaskActionType | SecondActionType
 
-// export type FirstActionType = {
-//   type: ''
-// }
-export type FirstActionType = ReturnType<typeof firstAC>
+export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 
-export const firstAC = (id: string ) => {
-  return {
-    type: 'REMOVE-TODOLIST',
-    payload: { id }
-  } as const
+export const removeTaskAC = (taskId: string, todolistId: string ) => {
+  return { type: 'REMOVE-TASK', taskId, todolistId } as const
 }
 
 export type SecondActionType = ReturnType<typeof secondAC>
