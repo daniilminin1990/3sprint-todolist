@@ -24,12 +24,14 @@ export const todolistsReducer = (state: TodolistType[], action: TodolistsReducer
 
 type TodolistsReducer = RemoveTodolistAC | AddTodoListAC | ChangeTodolistTitleAC | ChangeFilterAC
 
-type RemoveTodolistAC = ReturnType<typeof removeTodolistAC>
+export type RemoveTodolistAC = ReturnType<typeof removeTodolistAC>
 
 export const removeTodolistAC = (id: string ) => {
   return {
     type: 'REMOVE-TODOLIST',
-    payload: { id }
+    payload: { 
+      id,
+    }
   } as const
 }
 
