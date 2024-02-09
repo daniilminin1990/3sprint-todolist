@@ -28,37 +28,24 @@ export function TodolistWithRedux(props: PropsType) {
     let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.id])
     let dispatch = useDispatch()
 
-    // const removeTodolist = () => props.removeTodolist(props.id)
     const removeTodolist = () => dispatch(removeTodolistAC(props.id))
 
-    // const onAllClickHandler = () => props.changeFilter("all", props.id);
-    // const onActiveClickHandler = () => props.changeFilter("active", props.id);
-    // const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
     const onAllClickHandler = () => dispatch(changeFilterAC(props.id, 'all'))
     const onActiveClickHandler = () => dispatch(changeFilterAC(props.id, 'active'))
     const onCompletedClickHandler = () => dispatch(changeFilterAC(props.id, 'completed'))
 
     const addTaskHandler = (title: string) => {
-        // props.addTask(title, props.id)
         dispatch(addTaskAC(title, props.id))
     }
 
     const updateTodolistTitleHandler = (title: string) => {
-        // props.updateTodolistTitle(props.id, title)
         dispatch(changeTodolistTitleAC(props.id, title))
     }
 
     const changeTaskStatusHandler = (tID: string, newTaskStatus: boolean) => {
-        // props.changeTaskStatus(tID, newTaskStatus, props.id);
         dispatch(changeTaskStatusAC(tID, newTaskStatus, props.id))
     }
 
-    // if (tl.filter === "active") {
-    //   tasksForTodolist = allTodolistTasks.filter(t => t.isDone === false);
-    // }
-    // if (tl.filter === "completed") {
-    //   tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
-    // }
     if (props.filter === "active") {
         tasks = tasks.filter(t => t.isDone === false);
     }
@@ -81,11 +68,9 @@ export function TodolistWithRedux(props: PropsType) {
             <ul>
                 {
                     tasks.map(t => {
-                        // const onClickHandler = () => props.removeTask(t.id, props.id)
                         const onClickHandler = () => dispatch(removeTaskAC(t.id, props.id))
 
                         const updateTaskTitleHandler = (title: string) => {
-                            // props.updateTaskTitle(props.id, t.id, title)
                             dispatch(changeTaskTitleAC(t.id, title, props.id))
                         }
 
